@@ -1,0 +1,11 @@
+*.egg-info
+*.swp
+*.pyc
+.idea/
+*.iml
+.DS_Store
+build/
+dist/
+.pydevproject
+.project
+.settings

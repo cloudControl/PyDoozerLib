@@ -57,12 +57,11 @@ class PyDoozerLib(object):
     def set(self, path, value, rev):
         if self.get(path) is not "":
             print "Not empty"
-            self.delete(path, rev)
+            print "DELETE: {0}".format(self.delete(path, (self.get(path))[1]))
 
         request = Request(path=path, value=value, rev=rev, verb=Request.SET)
-        print request
-        print request.rev
-        resp = self.connection.send(request)
+        resp, rev = self.connection.send(request)
+        print "RESP: {0}  -- REV: {1}".format(resp, rev)
         return resp
 
 
@@ -87,18 +86,19 @@ class Connection(object):
 
     def send_proto_request(self, request):
         if not self.sock:
-            return False
+            return None
 
         request.tag = 0
         data = request.SerializeToString()
         head = struct.pack(">I", len(data))
         packet = ''.join([head, data])
+        rev = None
         try:
-            self.sock.send(packet)
+            rev = self.sock.send(packet)
         except IOError:
             self.disconnect()
-            return False
-        return True
+            return None
+        return rev
 
     #noinspection PyUnresolvedReferences
     def get_proto_response(self):
@@ -118,6 +118,7 @@ class Connection(object):
             return None
 
     def send(self, request):
-        if not self.send_proto_request(request):
+        rev = self.send_proto_request(request)
+        if rev is None:
             return None
-        return self.get_proto_response()
+        return self.get_proto_response(), rev

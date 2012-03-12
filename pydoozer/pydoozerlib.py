@@ -29,12 +29,47 @@ import struct
 from msg_pb2 import Request, Response
 
 
+#noinspection PyUnresolvedReferences
 class PyDoozerLib(object):
 
     def __init__(self, host, port):
         super(PyDoozerLib, self).__init__()
-        self.sock = None
+        self.connection = Connection(host, port)
 
+    def connect(self):
+        self.connection.connect()
+
+    def disconnect(self):
+        self.connection.disconnect()
+
+    def rev(self):
+        request = Request(verb=Request.REV)
+        return self.connection.send(request)
+
+    def delete(self, path, rev):
+        request = Request(path=path, rev=rev, verb=Request.DEL)
+        return self.connection.send(request)
+
+    def get(self, path):
+        request = Request(path=path, verb=Request.GET)
+        return self.connection.send(request)
+
+    def set(self, path, value, rev):
+        if self.get(path) is not "":
+            print "Not empty"
+            self.delete(path, rev)
+
+        request = Request(path=path, value=value, rev=rev, verb=Request.SET)
+        print request
+        print request.rev
+        resp = self.connection.send(request)
+        return resp
+
+
+class Connection(object):
+    def __init__(self, host, port):
+        super(Connection, self).__init__()
+        self.sock = None
         self.host = host
         self.port = port
         self.addr = (host, port)
@@ -50,17 +85,9 @@ class PyDoozerLib(object):
         self.sock.close()
         self.sock = None
 
-    #noinspection PyUnresolvedReferences
-    def get(self, doozer_path):
-        request = Request(path=doozer_path, verb=Request.GET)
-        if not self.send_proto_request(request):
-            return False
-
-        return self.get_proto_response()
-
     def send_proto_request(self, request):
         if not self.sock:
-            self.connect()
+            return False
 
         request.tag = 0
         data = request.SerializeToString()
@@ -69,6 +96,7 @@ class PyDoozerLib(object):
         try:
             self.sock.send(packet)
         except IOError:
+            self.disconnect()
             return False
         return True
 
@@ -88,5 +116,8 @@ class PyDoozerLib(object):
             return None
         except struct.error:
             return None
-        finally:
-            self.sock.close()
+
+    def send(self, request):
+        if not self.send_proto_request(request):
+            return None
+        return self.get_proto_response()

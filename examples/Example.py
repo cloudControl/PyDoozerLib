@@ -24,11 +24,16 @@
     OTHER DEALINGS IN THE SOFTWARE.
 
 """
-
 from pydoozerlib import PyDoozerLib
 
 host = '192.168.29.174'
 port = 8046
 
 client = PyDoozerLib(host, port)
-print client.get('/watch2')
+client.connect()
+print "REV: {0}".format(client.rev())
+print "GET: {0}".format(client.get('/watch2'))
+
+
+print client.set('/watch2', "NA WAT?", 0)
+client.disconnect()

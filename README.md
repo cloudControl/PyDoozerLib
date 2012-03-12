@@ -31,6 +31,18 @@ Using the `pip install git+ssh://...` method doesn't seem to run into this issue
 
 For more information check following issue: [Protobuf Issue #66](http://code.google.com/p/protobuf/issues/detail?id=66)
 
+## Creating protobuf stub
+
+In the `<project_root>/protobuf` directory you will find a `msg.proto` file. First, install `protobuf`, e.g. on Mac:
+
+	$ brew install protobuf
+
+Then, compile the proto file with `protoc`:
+
+	$ protoc --python_output=. msg.proto
+
+This will create a `msg_pb2.py` which can then be used in your Python project.
+
 ## Requirements
 
 `PyDoozer` needs:

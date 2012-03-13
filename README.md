@@ -47,15 +47,6 @@ Then, compile the proto file with `protoc`:
 
 This will create a `msg_pb2.py` which can then be used in your Python project.
 
-### Requirements
-
-`PyDoozerLib` needs:
-
-- [Protobuf](http://code.google.com/p/protobuf)
-
-You will need to install these for development. Upon installation, the dependencies are automatically installed.
-
-
 ## Todo
 
  * currently none

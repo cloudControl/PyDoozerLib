@@ -51,8 +51,8 @@ This will create a `msg_pb2.py` which can then be used in your Python project.
 
 ## Todo
 
- * currently none
- * tests, documentation
+ * tests
+ * documentation
 
 ## Contributors
 

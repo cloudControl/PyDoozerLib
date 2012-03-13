@@ -32,7 +32,11 @@ from msg_pb2 import Request, Response
 #noinspection PyUnresolvedReferences
 class PyDoozerLib(object):
 
+    # STATUS CODES
     STATUS_OK = 127
+
+    # Connection status
+    is_connected = False
 
     def __init__(self, host, port, timeout=None):
         super(PyDoozerLib, self).__init__()
@@ -40,9 +44,11 @@ class PyDoozerLib(object):
 
     def connect(self):
         self.connection.connect()
+        self.is_connected = True
 
     def disconnect(self):
         self.connection.disconnect()
+        self.is_connected = False
 
     def rev(self):
         request = Request(verb=Request.REV)
@@ -59,7 +65,12 @@ class PyDoozerLib(object):
         return self.connection.send(request)
 
     def set(self, path, value):
-        request = Request(path=path, value=value, rev=self.get(path).rev, verb=Request.SET)
+        request = Request(
+            path=path,
+            value=value,
+            rev=self.get(path).rev,
+            verb=Request.SET
+        )
         return self.connection.send(request)
 
 

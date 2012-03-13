@@ -33,6 +33,32 @@ Using the `pip install git+ssh://...` method doesn't seem to run into this issue
 
 For more information check following issue: [Protobuf Issue #66](http://code.google.com/p/protobuf/issues/detail?id=66)
 
+## Usage
+
+Using `PyDoozerLib` is dead simple.
+
+Establish a connection to a running doozerd node:
+
+	client = PyDoozerLib(doozerd_host, doozerd_port)
+	client.connect()
+
+Get the value at '/watch':
+
+	print client.get('/watch').value
+
+Overwrite the given value at '/watch' with a new value:
+
+	client.set('/watch', 'Some random value to be set')
+
+Delete a value:
+
+	rev = client.get('/watch').rev
+	client.delete('/watch', rev)
+
+And disconnect:
+
+	client.disconnect()
+
 ## Hacking on PyDoozerLib
 
 Make sure to go through following points if you want to modify `PyDoozerLib`.

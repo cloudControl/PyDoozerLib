@@ -65,5 +65,14 @@ print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
 print ""
 
+# Write a new value at a new path '/watch4'
+rev = client.get('/watch4').rev
+client.delete('/watch4', rev)
+resp = client.get('/watch4')
+print "REV: {0}".format(resp.rev)
+print "VALUE: {0}".format(resp.value)
+print "TAG: {0}".format(resp.tag)
+print ""
+
 # ... and disconnect!
 client.disconnect()

@@ -27,6 +27,8 @@ Simply install `protobuf` via `pip` manually:
 
 Then run `python setup.py install` again!
 
+#### More information
+
 Using the `pip install git+ssh://...` method doesn't seem to run into this issue.
 
 For more information check following issue: [Protobuf Issue #66](http://code.google.com/p/protobuf/issues/detail?id=66)

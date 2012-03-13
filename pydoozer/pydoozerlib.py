@@ -50,19 +50,15 @@ class PyDoozerLib(object):
         request = Request(path=path, rev=rev, verb=Request.DEL)
         return self.connection.send(request)
 
-    def get(self, path):
+    def get(self, path, rev=None):
         request = Request(path=path, verb=Request.GET)
+        if rev:
+            request.rev = rev
         return self.connection.send(request)
 
-    def set(self, path, value, rev):
-        if self.get(path) is not "":
-            print "Not empty"
-            print "DELETE: {0}".format(self.delete(path, (self.get(path))[1]))
-
-        request = Request(path=path, value=value, rev=rev, verb=Request.SET)
-        resp, rev = self.connection.send(request)
-        print "RESP: {0}  -- REV: {1}".format(resp, rev)
-        return resp
+    def set(self, path, value):
+        request = Request(path=path, value=value, rev=self.get(path).rev, verb=Request.SET)
+        return self.connection.send(request)
 
 
 class Connection(object):
@@ -92,7 +88,6 @@ class Connection(object):
         data = request.SerializeToString()
         head = struct.pack(">I", len(data))
         packet = ''.join([head, data])
-        rev = None
         try:
             rev = self.sock.send(packet)
         except IOError:
@@ -111,7 +106,7 @@ class Connection(object):
             data = self.sock.recv(length)
             response = Response()
             response.ParseFromString(data)
-            return response.value
+            return response
         except IOError:
             return None
         except struct.error:
@@ -121,4 +116,4 @@ class Connection(object):
         rev = self.send_proto_request(request)
         if rev is None:
             return None
-        return self.get_proto_response(), rev
+        return self.get_proto_response()

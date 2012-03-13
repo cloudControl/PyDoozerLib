@@ -28,12 +28,35 @@ from pydoozerlib import PyDoozerLib
 
 host = '192.168.29.174'
 port = 8046
+ssh_config = '''X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
+#UseLogin no'''
 
 client = PyDoozerLib(host, port)
+
 client.connect()
-print "REV: {0}".format(client.rev())
-print "GET: {0}".format(client.get('/watch2'))
 
+resp = client.get('/watch2')
+print "REV: {0}".format(resp.rev)
+print "VALUE: {0}".format(resp.value)
+print "TAG: {0}".format(resp.tag)
+print ""
 
-print client.set('/watch2', "NA WAT?", 0)
+client.set('/watch2', ssh_config)
+resp = client.get('/watch2')
+print "REV: {0}".format(resp.rev)
+print "VALUE: {0}".format(resp.value)
+print "TAG: {0}".format(resp.tag)
+print ""
+
+client.set('/watch4', "Audiiii")
+resp = client.get('/watch4')
+print "REV: {0}".format(resp.rev)
+print "VALUE: {0}".format(resp.value)
+print "TAG: {0}".format(resp.tag)
+print ""
+
 client.disconnect()

@@ -32,6 +32,8 @@ from msg_pb2 import Request, Response
 #noinspection PyUnresolvedReferences
 class PyDoozerLib(object):
 
+    STATUS_OK = 127
+
     def __init__(self, host, port, timeout=None):
         super(PyDoozerLib, self).__init__()
         self.connection = Connection(host=host, port=port, timeout=timeout)

@@ -55,6 +55,7 @@ resp = client.get('/watch2')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
+print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
 # Overwrite the given value at '/watch2' with a new value
@@ -63,6 +64,7 @@ resp = client.get('/watch2')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
+print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
 # Write a new value at a new path '/watch4'
@@ -71,6 +73,7 @@ resp = client.get('/watch4')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
+print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
 # Write a new value at a new path '/watch4'
@@ -80,7 +83,13 @@ resp = client.get('/watch4')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
+print "ERR_CODE: {0}".format(resp.err_code)
 print ""
+
+# This should fail ... there is no path 'auto'!
+resp = client.set('auto', 'what')
+if resp.err_code != client.STATUS_OK:
+    print "Something went wrong! Error code = {0}".format(resp.err_code)
 
 # ... and disconnect!
 client.disconnect()

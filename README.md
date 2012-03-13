@@ -4,13 +4,13 @@ A Python client for [Doozer](https://github.com/ha/doozerd).
 
 ## Latest version
 
-The latest is `0.1.1`.
+The latest is `0.1.2`.
 
 ## Installation
 
 Install via `pip`:
 
-	$ pip install git+ssh://git@github.com/cloudControl/PyDoozerLib.git@0.1.1
+	$ pip install git+ssh://git@github.com/cloudControl/PyDoozerLib.git@0.1.2
 
 ### Installation error with protobuf 2.4.1
 

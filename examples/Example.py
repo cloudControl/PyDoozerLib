@@ -24,6 +24,8 @@
     OTHER DEALINGS IN THE SOFTWARE.
 
 """
+import socket
+import sys
 from pydoozerlib import PyDoozerLib
 
 # Provide at least 1 IP address and port of the Doozer cluster
@@ -41,7 +43,12 @@ TCPKeepAlive yes
 
 # Create the Doozer client and connect to the Doozerd server/cluster
 client = PyDoozerLib(host, port, timeout)
-client.connect()
+
+try:
+    client.connect()
+except socket.timeout:
+    print "Cannot connect to host={0} on port={1}!".format(host, port)
+    sys.exit(1)
 
 # Get the value at '/watch2'
 resp = client.get('/watch2')

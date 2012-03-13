@@ -59,6 +59,8 @@ And disconnect:
 
 	client.disconnect()
 
+Also refer to the `examples/Example.py` file for a thorough example.
+
 ## Hacking on PyDoozerLib
 
 Make sure to go through following points if you want to modify `PyDoozerLib`.

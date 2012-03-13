@@ -10,7 +10,7 @@ The latest is `0.1-SNAPSHOT`.
 
 Install via `pip`:
 
-	$ pip install git+ssh://git@github.com/cloudControl/pydoozerlib.git@0.1-SNAPSHOT
+	$ pip install git+ssh://git@github.com/cloudControl/PyDoozerLib.git@0.1-SNAPSHOT
 
 ### Installation error with protobuf 2.4.1
 
@@ -31,7 +31,11 @@ Using the `pip install git+ssh://...` method doesn't seem to run into this issue
 
 For more information check following issue: [Protobuf Issue #66](http://code.google.com/p/protobuf/issues/detail?id=66)
 
-## Creating protobuf stub
+## Hacking on PyDoozerLib
+
+Make sure to go through following points if you want to modify `PyDoozerLib`.
+
+### Creating protobuf stub
 
 In the `<project_root>/protobuf` directory you will find a `msg.proto` file. First, install `protobuf`, e.g. on Mac:
 
@@ -43,13 +47,14 @@ Then, compile the proto file with `protoc`:
 
 This will create a `msg_pb2.py` which can then be used in your Python project.
 
-## Requirements
+### Requirements
 
-`PyDoozer` needs:
+`PyDoozerLib` needs:
 
 - [Protobuf](http://code.google.com/p/protobuf)
 
 You will need to install these for development. Upon installation, the dependencies are automatically installed.
+
 
 ## Todo
 

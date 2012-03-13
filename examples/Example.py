@@ -26,8 +26,11 @@
 """
 from pydoozerlib import PyDoozerLib
 
+# Provide at least 1 IP address and port of the Doozer cluster
 host = '192.168.29.174'
 port = 8046
+
+# A sample configuration to write ...
 ssh_config = '''X11Forwarding yes
 X11DisplayOffset 10
 PrintMotd no
@@ -35,16 +38,18 @@ PrintLastLog yes
 TCPKeepAlive yes
 #UseLogin no'''
 
+# Create the Doozer client and connect to the Doozerd server/cluster
 client = PyDoozerLib(host, port)
-
 client.connect()
 
+# Get the value at '/watch2'
 resp = client.get('/watch2')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
 print ""
 
+# Overwrite the given value at '/watch2' with a new value
 client.set('/watch2', ssh_config)
 resp = client.get('/watch2')
 print "REV: {0}".format(resp.rev)
@@ -52,6 +57,7 @@ print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
 print ""
 
+# Write a new value at a new path '/watch4'
 client.set('/watch4', "Audiiii")
 resp = client.get('/watch4')
 print "REV: {0}".format(resp.rev)
@@ -59,4 +65,5 @@ print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
 print ""
 
+# ... and disconnect!
 client.disconnect()

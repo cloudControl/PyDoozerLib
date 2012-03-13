@@ -29,6 +29,7 @@ from pydoozerlib import PyDoozerLib
 # Provide at least 1 IP address and port of the Doozer cluster
 host = '192.168.29.174'
 port = 8046
+timeout = 15.0
 
 # A sample configuration to write ...
 ssh_config = '''X11Forwarding yes
@@ -39,7 +40,7 @@ TCPKeepAlive yes
 #UseLogin no'''
 
 # Create the Doozer client and connect to the Doozerd server/cluster
-client = PyDoozerLib(host, port)
+client = PyDoozerLib(host, port, timeout)
 client.connect()
 
 # Get the value at '/watch2'

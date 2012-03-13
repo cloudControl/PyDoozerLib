@@ -32,9 +32,9 @@ from msg_pb2 import Request, Response
 #noinspection PyUnresolvedReferences
 class PyDoozerLib(object):
 
-    def __init__(self, host, port):
+    def __init__(self, host, port, timeout=None):
         super(PyDoozerLib, self).__init__()
-        self.connection = Connection(host, port)
+        self.connection = Connection(host=host, port=port, timeout=timeout)
 
     def connect(self):
         self.connection.connect()
@@ -62,18 +62,27 @@ class PyDoozerLib(object):
 
 
 class Connection(object):
-    def __init__(self, host, port):
+
+    # Setting the default timeout to 60 seconds
+    DEFAULT_TIMEOUT = 60.0
+
+    def __init__(self, host, port, timeout=None):
         super(Connection, self).__init__()
         self.sock = None
         self.host = host
         self.port = port
         self.addr = (host, port)
 
+        self.timeout = timeout
+        if timeout is None:
+            self.timeout = self.DEFAULT_TIMEOUT
+
     def connect(self):
         if self.sock:
             self.disconnect()
 
         self.sock = socket.socket()
+        self.sock.settimeout(self.timeout)
         self.sock.connect(self.addr)
 
     def disconnect(self):

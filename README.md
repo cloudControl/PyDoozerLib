@@ -4,13 +4,13 @@ A Python client for [Doozer](https://github.com/ha/doozerd).
 
 ## Latest version
 
-The latest is `0.1.3`.
+The latest is `0.1.4`.
 
 ## Installation
 
 Install via `pip`:
 
-	$ pip install git+ssh://git@github.com/cloudControl/PyDoozerLib.git@0.1.3
+	$ pip install git+ssh://git@github.com/cloudControl/PyDoozerLib.git@0.1.4
 
 ### Installation error with protobuf 2.4.1
 
@@ -39,6 +39,7 @@ Using `PyDoozerLib` is dead simple.
 
 Establish a connection to a running doozerd node:
 
+	from pydoozerlib import PyDoozerLib
 	client = PyDoozerLib(doozerd_host, doozerd_port)
 	client.connect()
 

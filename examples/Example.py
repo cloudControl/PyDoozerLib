@@ -86,6 +86,23 @@ print "TAG: {0}".format(resp.tag)
 print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
+# Write a new value at a more complicated path
+resp = client.set('/a/b/d', 'somevalue')
+print resp
+print "REV: {0}".format(resp.rev)
+print "VALUE: {0}".format(resp.value)
+print "TAG: {0}".format(resp.tag)
+print "ERR_CODE: {0}".format(resp.err_code)
+print ""
+
+# Now, see if we can get the value at that complex path ...
+resp = client.get('/a/b/d')
+print "REV: {0}".format(resp.rev)
+print "VALUE: {0}".format(resp.value)
+print "TAG: {0}".format(resp.tag)
+print "ERR_CODE: {0}".format(resp.err_code)
+print ""
+
 # This should fail ... there is no path 'auto'!
 resp = client.set('auto', 'what')
 if resp.err_code != client.STATUS_OK:

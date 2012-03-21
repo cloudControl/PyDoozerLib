@@ -34,7 +34,7 @@ from setuptools import find_packages
 from pydoozerlib import version
 
 DOWNLOAD_URL = 'https://github.com/downloads/cloudControl/pydoozerlib/' \
-               'pydoozerlib-{0}.tar.gz'.format(version.__version__)
+               'PyDoozerLib-{0}.tar.gz'.format(version.__version__)
 
 setup(
     name="PyDoozerLib",

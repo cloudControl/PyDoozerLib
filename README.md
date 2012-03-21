@@ -1,16 +1,16 @@
 # PyDoozerLib
 
-A Python client for [Doozer](https://github.com/ha/doozerd).
+A Python client for [Doozer](https://github.com/ha/doozerd). This is partly based on Jeff Lindsay's and Neuman Vong's [progrium/pydoozer](https://github.com/progrium/pydoozer). [gevent](http://www.gevent.org/) has been taken out.
 
 ## Latest version
 
-The latest is `0.1.4`.
+The latest is `0.1.5`.
 
 ## Installation
 
 Install via `pip`:
 
-	$ pip install git+ssh://git@github.com/cloudControl/PyDoozerLib.git@0.1.4
+	$ pip install git+ssh://git@github.com/cloudControl/PyDoozerLib.git@0.1.5
 
 ### Installation error with protobuf 2.4.1
 

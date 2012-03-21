@@ -50,17 +50,27 @@ except socket.timeout:
     print "Cannot connect to host={0} on port={1}!".format(host, port)
     sys.exit(1)
 
-# Get the value at '/watch2'
-resp = client.get('/watch2')
+# Set a value at '/test' with a new value
+client.set('/test', ssh_config)
+resp = client.get('/test')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
 print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
-# Overwrite the given value at '/watch2' with a new value
-client.set('/watch2', ssh_config)
-resp = client.get('/watch2')
+# Get the value at '/test'
+resp = client.get('/test')
+print "REV: {0}".format(resp.rev)
+print "VALUE: {0}".format(resp.value)
+print "TAG: {0}".format(resp.tag)
+print "ERR_CODE: {0}".format(resp.err_code)
+print ""
+
+
+# Write a new value at a new path '/watch4'
+client.set('/test2', "some value")
+resp = client.get('/test2')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
@@ -68,18 +78,9 @@ print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
 # Write a new value at a new path '/watch4'
-client.set('/watch4', "Audiiii")
-resp = client.get('/watch4')
-print "REV: {0}".format(resp.rev)
-print "VALUE: {0}".format(resp.value)
-print "TAG: {0}".format(resp.tag)
-print "ERR_CODE: {0}".format(resp.err_code)
-print ""
-
-# Write a new value at a new path '/watch4'
-rev = client.get('/watch4').rev
-client.delete('/watch4', rev)
-resp = client.get('/watch4')
+rev = client.get('/test2').rev
+client.delete('/test2', rev)
+resp = client.get('/test2')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
@@ -87,7 +88,7 @@ print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
 # Write a new value at a more complicated path
-resp = client.set('/a/b/d', 'somevalue')
+resp = client.set('/a/b/c', 'somevalue')
 print resp
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
@@ -96,7 +97,7 @@ print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
 # Now, see if we can get the value at that complex path ...
-resp = client.get('/a/b/d')
+resp = client.get('/a/b/c')
 print "REV: {0}".format(resp.rev)
 print "VALUE: {0}".format(resp.value)
 print "TAG: {0}".format(resp.tag)
@@ -104,7 +105,7 @@ print "ERR_CODE: {0}".format(resp.err_code)
 print ""
 
 # This should fail ... there is no path 'auto'!
-resp = client.set('auto', 'what')
+resp = client.set('someInvalidPath', 'This should not work')
 if resp.err_code != client.STATUS_OK:
     print "Something went wrong! Error code = {0}".format(resp.err_code)
 

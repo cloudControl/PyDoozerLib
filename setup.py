@@ -31,7 +31,7 @@
 
 from distutils.core import setup
 from setuptools import find_packages
-import version
+from pydoozerlib import version
 
 DOWNLOAD_URL = 'https://github.com/downloads/cloudControl/pydoozerlib/' \
                'pydoozerlib-{0}.tar.gz'.format(version.__version__)
